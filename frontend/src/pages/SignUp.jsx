@@ -1,16 +1,18 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import api from "../api/axios";
 import { useStateContext } from "../contexts/contextProvider";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const { setUser, setToken } = useStateContext;
+  const { setUser, setToken, user, token } = useStateContext();
 
   const nameRef = useRef();
   const emailRef = useRef();
   const addressRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmationRef = useRef();
+  const navigate = useNavigate();
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -19,18 +21,30 @@ const SignUp = () => {
       email: emailRef.current.value,
       address: addressRef.current.value,
       password: passwordRef.current.value,
+      role: "CUSTOMER",
     };
     console.log(newUser);
     api
       .post("/api/signup", newUser)
       .then(({ data }) => {
+        console.log(data);
         setUser(data.user);
         setToken(data.token);
+        console.log("Set user called with:", data.user);
+        navigate("/shop");
       })
       .catch((err) => {
         console.error(err.response.data.message);
       });
   };
+
+  useEffect(() => {
+    console.log("User updated:", user);
+  }, [user]);
+
+  useEffect(() => {
+    console.log("token updated:", token);
+  }, [token]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">

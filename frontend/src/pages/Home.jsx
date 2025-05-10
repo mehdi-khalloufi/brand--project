@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import Hero from "./components/hero.jsx";
 import Masonry from "../components/Masonry.jsx";
 import CircularGallery from "../components/CircularGallery.jsx";
@@ -7,6 +7,9 @@ import ScrollVelocity from "../components/ScrollVelocity.jsx";
 import Footer from "../components/Footer.jsx";
 import Desc from "../components/Desc.jsx";
 import Hero from "../components/Hero.jsx";
+import { useStateContext } from "../contexts/contextProvider.jsx";
+
+
 const Home = () => {
   const [count, setCount] = useState(0);
   const data = [
@@ -24,6 +27,13 @@ const Home = () => {
   const handleAnimationComplete = () => {
     console.log("Animation completed!");
   };
+
+  const { user, token } = useStateContext();
+
+  useEffect(() => {
+   console.log("User:", user);
+  }, [])
+  
 
   return (
     <>
@@ -50,7 +60,7 @@ const Home = () => {
       <div style={{ height: "600px", position: "relative" }}>
         <CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} />
       </div>
-
+     
       <Footer />
     </>
   );
