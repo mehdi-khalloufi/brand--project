@@ -6,43 +6,13 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-
-function Home() {
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    api.get("api/test")
-      .then(res => setMessage(res.data.message))
-      .catch(err => console.error(err));
-  }, []);
-
-  return (
-    <div>
-      <h1>Accueil</h1>
-      <p>{message}</p>
-    </div>
-  );
-}
-
-function About() {
-  return <h1>À propos</h1>;
-}
-
-function NotFound() {
-  return <h1>Page non trouvée</h1>;
-}
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="*" element={<NotFound />} />
-    </>
-  )
-);
+import Home from "./pages/Home";
 
 function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(<Route path="/" element={<Home />} />)
+  );
+
   return <RouterProvider router={router} />;
 }
 
