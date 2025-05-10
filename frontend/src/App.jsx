@@ -11,13 +11,6 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
 function App() {
-  const [message, setMessage] = useState("");
-
-  // useEffect(() => {
-  //   api.get("api/test")
-  //     .then(res => setMessage(res.data.message))
-  //     .catch(err => console.error(err));
-  // }, []);
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
