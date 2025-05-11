@@ -6,7 +6,9 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+
 import Home from "./pages/Home";
+import Layout from "./layouts/layout";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Shop from "./pages/Shop";
@@ -21,6 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/layout" element={<Layout />} />
 
         <Route path="/unauthorized" element={<Unauthorized />} />
 
@@ -30,7 +33,7 @@ function App() {
 
         <Route>
           <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin" element={<Layout />}></Route>
           </Route>
         </Route>
       </>
