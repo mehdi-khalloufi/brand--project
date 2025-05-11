@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -15,18 +16,18 @@ const Hero = () => {
           </div>
           <div className="flex items-center">
             <nav className="font-sen text-gray-800  uppercase text-lg lg:flex items-center hidden">
-              <a href="#" className="py-2 px-6 flex">
+              <Link to="/" className="py-2 px-6 flex">
                 Home
-              </a>
-              <a href="#" className="py-2 px-6 flex">
+              </Link>
+              <Link to="/" className="py-2 px-6 flex">
                 Watch
-              </a>
-              <a href="#" className="py-2 px-6 flex">
-                Product
-              </a>
-              <a href="#" className="py-2 px-6 flex">
+              </Link>
+              <Link to="/login" className="py-2 px-6 flex">
+                Login
+              </Link>
+              <Link to="/" className="py-2 px-6 flex">
                 Contact
-              </a>
+              </Link>
             </nav>
             <button className="lg:hidden flex flex-col ml-4">
               <span className="w-6 h-1 bg-gray-800  mb-1"></span>

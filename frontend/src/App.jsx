@@ -9,14 +9,34 @@ import {
 
 import Home from "./pages/Home";
 import Layout from "./layouts/layout";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Shop from "./pages/Shop";
+import Unauthorized from "./components/Unauthorized";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Admin from "./pages/Admin";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-    <Route path="/" element={<Home />} />
-    <Route path="/layout" element={<Layout />} />
-    </>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/layout" element={<Layout />} />
+
+        <Route path="/unauthorized" element={<Unauthorized />} />
+
+        <Route element={<ProtectedRoute allowedRoles={["CUSTOMER"]} />}>
+          <Route path="/shop" element={<Shop />} />
+        </Route>
+
+        <Route>
+          <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
+            <Route path="/admin" element={<Layout />}></Route>
+          </Route>
+        </Route>
+      </>
     )
   );
 
