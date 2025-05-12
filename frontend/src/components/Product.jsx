@@ -5,7 +5,7 @@ const Product = (props) => {
   return (
     <>
       <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-        <Link to={`/shop/buy`}>
+        <Link to={`/shop/buy/`}>
           <img
             src={props.image}
             alt="Product"
