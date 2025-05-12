@@ -4,30 +4,55 @@ import { span } from 'framer-motion/client';
 export default function Products() {
     const [message,setMessage]=useState(null);
     const [erreur,setErreur]=useState(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    quantity: '',
-    size: '',
-    image: null,
-    category: ''
-  });
-
+    
+    const [formData, setFormData] = useState({
+      name: '',
+      description: '',
+      price: '',
+      image: null,
+      category: '',
+      sizes: [] // Liste d'objets { size: 'M', quantity: 10 }
+    });
   const categories = ['Vêtements', 'Chaussures', 'Accessoires', 'Équipement'];
-  const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+  const sizeees = ['S', 'M', 'L', 'XL', 'XXL'];
 
- const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage(null);
+    setErreur(null);
+  
+    const { name, description, price, image, category, sizes } = formData;
+  
+    if (!sizes.length) {
+      setErreur("Veuillez sélectionner au moins une taille avec sa quantité.");
+      return;
+    }
+  
     try {
-        const response = await api.post('/api/products', formData);
-        console.log('Produit ajouté:', response.data);
-        setMessage("Produit ajouté");
-      } catch (error) {
-        console.error('Erreur lors de l\'ajout du produit:', error);
-        setErreur('Erreur lors de l\'ajout du produit');
+      for (const s of sizes) {
+        const data = new FormData();
+        data.append('name', name);
+        data.append('description', description);
+        data.append('price', price);
+        data.append('category', category);
+        data.append('image', image);
+        data.append('size', s.size);
+        data.append('quantity', s.quantity);
+  
+        const response = await api.post('/api/products', data, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+  
+        console.log(`Produit ajouté pour taille ${s.size}:`, response.data);
       }
-
+  
+      setMessage("Produit(s) ajouté(s) avec succès !");
+    } catch (error) {
+      console.error("Erreur lors de l'ajout des produits:", error);
+      setErreur("Une erreur s'est produite lors de l'ajout.");
+    }
   };
 
   const handleChange = (e) => {
@@ -37,7 +62,31 @@ export default function Products() {
         [name]: files ? files[0] : value
     }));
 };
+const handleSizeChange = (size) => {
+  setFormData(prev => {
+    const exists = prev.sizes.find(s => s.size === size);
+    if (exists) {
+      return {
+        ...prev,
+        sizes: prev.sizes.filter(s => s.size !== size) // décocher = supprimer
+      };
+    } else {
+      return {
+        ...prev,
+        sizes: [...prev.sizes, { size, quantity: 1 }] // cocher = ajouter avec quantité 1 par défaut
+      };
+    }
+  });
+};
 
+const handleQuantityChange = (size, quantity) => {
+  setFormData(prev => ({
+    ...prev,
+    sizes: prev.sizes.map(s =>
+      s.size === size ? { ...s, quantity: Number(quantity) } : s
+    )
+  }));
+};
   return (
     <div className="min-h-full bg-white p-8">
       <h1 className="text-3xl font-bold text-center text-black mb-8">AJOUTER UN PRODUIT</h1>
@@ -95,39 +144,39 @@ export default function Products() {
           </div>
 
           {/* Taille */}
-          <div>
-            <label className="block text-sm font-medium text-black mb-2">
-              Taille
-            </label>
-            <select
-              name="size"
-              value={formData.size}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-black rounded-lg bg-white focus:ring-2 focus:ring-black"
-              required
-            >
-              <option value="">Sélectionner une taille</option>
-              {sizes.map(size => (
-                <option key={size} value={size}>{size}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Quantité */}
-          <div>
-            <label className="block text-sm font-medium text-black mb-2">
-              Quantité
-            </label>
+        {/* Tailles et Quantités */}
+<div className="md:col-span-2">
+  <label className="block text-sm font-medium text-black mb-2">
+    Tailles et Quantités
+  </label>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {sizeees.map(size => {
+      const selected = formData.sizes.find(s => s.size === size);
+      return (
+        <div key={size} className="flex items-center gap-4">
+          <input
+            type="checkbox"
+            checked={!!selected}
+            onChange={() => handleSizeChange(size)}
+            className="h-4 w-4"
+          />
+          <span className="w-10">{size}</span>
+          {selected && (
             <input
               type="number"
-              name="quantity"
               min={0}
-              value={formData.quantity}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-black"
+              value={selected.quantity}
+              onChange={(e) => handleQuantityChange(size, e.target.value)}
+              className="w-24 px-2 py-1 border border-black rounded"
+              placeholder="Quantité"
               required
             />
-          </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
 
           {/* Image */}
           <div>

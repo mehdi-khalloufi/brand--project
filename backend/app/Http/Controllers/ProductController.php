@@ -74,4 +74,57 @@ public function destroy($id)
 
     return response()->json(['message' => 'Produit supprimé avec succès.']);
 }
+
+
+public function update(Request $request, $id)
+{
+    $product = Product::findOrFail($id);
+    $request->merge([
+        'price' => (float)$request->price,
+        'quantity' => (int)$request->quantity
+    ]);
+    try {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'size' => 'required|string|max:5',
+            'category' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json(['errors' => $e->errors()],422);
+    }
+
+    $product->name = $request->name;
+    $product->description = $request->description;
+    $product->price = $request->price;
+    $product->quantity = $request->quantity;
+    $product->size = $request->size;
+    $product->category = $request->category;
+
+    if ($request->hasFile('image')) {
+        if ($product->image_url) {
+            $imagePath = parse_url($product->image_url, PHP_URL_PATH);
+            $fullPath = public_path($imagePath);
+
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
+
+        $imagePath = $request->file('image')->store('products', 'public');
+        $product->image_url = asset('storage/' . $imagePath);
+    }
+
+    $product->save();
+
+    return response()->json([
+        'message' => 'Produit mis à jour avec succès',
+        'product' => $product
+    ]);
+}
+
+
 }

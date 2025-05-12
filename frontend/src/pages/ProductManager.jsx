@@ -5,6 +5,27 @@ const ProductManager = () => {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [message,setMessage]=useState(null);
+    const [erreur,setErreur]=useState(null);
+  const categories = ['Vêtements', 'Chaussures', 'Accessoires', 'Équipement'];
+  const sizeees = ['S', 'M', 'L', 'XL', 'XXL'];
+  
+  
+  const handleEditChange = (e) => {
+    console.log(editingProduct);
+    const { name, value } = e.target;
+    setEditingProduct(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  const handleEditImageChange = (e) => {
+    const file = e.target.files[0];
+    setEditingProduct(prev => ({
+      ...prev,
+      image: file
+    }));
+  };
 
   // Récupérer les produits
   const fetchProducts = async () => {
@@ -35,15 +56,37 @@ const ProductManager = () => {
   };
 
   // Mettre à jour un produit
-  const handleUpdate = async (updatedProduct) => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    setMessage(null);
+    setErreur(null);
+  
     try {
-      const response = await api.put(`/api/products/${updatedProduct.id}`, updatedProduct);
-      fetchProducts();
+      const formData = new FormData();
+      formData.append('name', editingProduct.name);
+      formData.append('description', editingProduct.description || ''); 
+      formData.append('price', String(editingProduct.price)); 
+      formData.append('quantity', String(editingProduct.quantity));
+      formData.append('size', editingProduct.size);
+      formData.append('category', editingProduct.category);
+  
+      if (editingProduct.image instanceof File) {
+        formData.append('image', editingProduct.image);
+      }
+  
+      const response = await api.post(`/api/products/${editingProduct.id}`, formData); 
+      
+      console.log("Produit modifié :", response.data);
+      setMessage("Produit modifié avec succès !");
       setEditingProduct(null);
+      setMessage(null);
+      fetchProducts();
     } catch (error) {
-      console.error('Error updating product:', error);
+      console.error("Erreur détaillée :", error.response?.data);
+      setErreur(error.response?.data?.errors || "Erreur inconnue");
     }
   };
+  
 
   if (loading) return <div className="text-center py-8">Chargement...</div>;
 
@@ -113,19 +156,150 @@ const ProductManager = () => {
   
     {/* Formulaire de modification */}
     {editingProduct && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div className="bg-white p-6 rounded-lg w-full max-w-xl mx-4">
-          <h2 className="text-xl font-bold mb-4">Modifier le produit</h2>
-          {/* Formulaire de modification */}
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="bg-white p-8 rounded-lg w-full max-w-2xl mx-4">
+      <h1 className="text-3xl font-bold text-center text-black mb-8">MODIFIER LE PRODUIT</h1>
+      
+      <form onSubmit={handleUpdate} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Nom du produit */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Nom du produit
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={editingProduct.name}
+              onChange={handleEditChange}
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-black"
+              required
+            />
+          </div>
+
+          {/* Catégorie */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Catégorie
+            </label>
+            <select
+              name="category"
+              value={editingProduct.category}
+              onChange={handleEditChange}
+              className="w-full px-4 py-2 border border-black rounded-lg bg-white focus:ring-2 focus:ring-black"
+              required
+            >
+              {categories.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Prix */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Prix (DH)
+            </label>
+            <input
+              type="number"
+              min="0"
+              name="price"
+              value={editingProduct.price}
+              onChange={handleEditChange}
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-black"
+              required
+            />
+          </div>
+
+          {/* Taille */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Taille
+            </label>
+            <select
+              name="size"
+              value={editingProduct.size}
+              onChange={handleEditChange}
+              className="w-full px-4 py-2 border border-black rounded-lg bg-white focus:ring-2 focus:ring-black"
+              required
+            >
+              
+              {sizeees.map(size => (
+                <option key={size} value={size}>{size}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Quantité */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Quantité
+            </label>
+            <input
+              type="number"
+              name="quantity"
+              min="0"
+              value={editingProduct.quantity}
+              onChange={handleEditChange}
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-black"
+              required
+            />
+          </div>
+
+          {/* Image */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Image du produit
+            </label>
+            <input
+              type="file"
+              name="image"
+              onChange={handleEditImageChange}
+              className="w-full file:px-4 file:py-2 file:border file:border-black file:rounded-lg file:bg-white file:text-black hover:file:bg-gray-100"
+              accept="image/*"
+            />
+          </div>
+        </div>
+
+        {/* Description */}
+        <div>
+          <label className="block text-sm font-medium text-black mb-2">
+            Description
+          </label>
+          <textarea
+            name="description"
+            value={editingProduct.description}
+            onChange={handleEditChange}
+            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-black h-32"
+          />
+        </div>
+
+        {/* Messages */}
+        <div className="w-full">
+          {message && <span className="block text-center text-black mb-1">{message}</span>}
+          {erreur && <span className="block text-center text-red-600 mb-1">{erreur}</span>}
+        </div>
+
+        {/* Boutons */}
+        <div className="flex justify-center gap-4">
           <button
+            type="button"
             onClick={() => setEditingProduct(null)}
-            className="mt-4 px-4 py-2 bg-black text-white rounded hover:bg-gray-800 text-sm"
+            className="px-8 py-3 border border-black text-black rounded-lg hover:bg-gray-100 transition-colors"
           >
-            Fermer
+            Annuler
+          </button>
+          <button
+            type="submit"
+            className="px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+          >
+            Enregistrer
           </button>
         </div>
-      </div>
-    )}
+      </form>
+    </div>
+  </div>
+)}
   </div>
   );
 };

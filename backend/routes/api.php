@@ -19,6 +19,7 @@ Route::get('/test', function () {
 Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/products', [ProductController::class, 'products']);
 Route::middleware('auth:sanctum')->delete('/products/{id}', [ProductController::class, 'destroy']);
+Route::middleware('auth:sanctum')->post('/products/{id}', [ProductController::class, 'update']);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'register']);
