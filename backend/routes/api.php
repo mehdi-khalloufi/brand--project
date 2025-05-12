@@ -1,6 +1,8 @@
 <?php
+use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SizeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,10 @@ Route::get('/test', function () {
     return ['message' => 'Bonjour depuis Laravel ! chi 9alwa wla ana f laravel azbi'];
 });
 
+
+Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/products', [ProductController::class, 'products']);
+Route::middleware('auth:sanctum')->delete('/products/{id}', [ProductController::class, 'destroy']);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'register']);
