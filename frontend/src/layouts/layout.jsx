@@ -11,6 +11,12 @@ const navigation = [
   { name: "Reports", href: "/reports" },
 ];
 
+const customerNavigation = [
+  { name: "Shop", href: "/shop" },
+  { name: "Products", href: "/shop/products" },
+  { name: "Orders", href: "/shop/orders" },
+];
+
 const userNavigation = [
   { name: "Your Profile", href: "/profile" },
   { name: "Settings", href: "/settings" },
@@ -28,6 +34,13 @@ export default function Layout() {
   const { user, token, setUser, setToken } = useStateContext();
   const [loading, setLoading] = useState(true);
   const [fetched, setFetched] = useState(false);
+
+  const logout = () => {
+    api.post("/api/logout").then(({}) => {
+      setUser(null);
+      setToken(null);
+    });
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -67,18 +80,20 @@ export default function Layout() {
           </div>
           <div className="ml-auto flex items-center">
             <div className="hidden sm:flex ">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={
-                    "text-black hover:border-b-2 hover:border-black py-2 px-3 flex uppercase text-sm font-medium"
-                  }
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {(user.role == "ADMIN" ? navigation : customerNavigation).map(
+                (item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={
+                      "text-black hover:border-b-2 hover:border-black py-2 px-3 flex uppercase text-sm font-medium"
+                    }
+                  >
+                    {item.name}
+                  </Link>
+                )
+              )}
             </div>
             <div className="hidden sm:flex items-center ml-6">
               <button
@@ -95,7 +110,13 @@ export default function Layout() {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className="block px-4 py-2 text-sm text-white hover:bg-gray-800"
+                      onClick={() => {
+                        setProfileOpen(false);
+                        if (item.name === "Sign out") {
+                          logout();
+                        }
+                      }}
+                      className="block px-4 py-2 text-white hover:bg-gray-700 rounded-md"
                     >
                       {item.name}
                     </Link>

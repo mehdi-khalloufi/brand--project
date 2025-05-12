@@ -15,6 +15,7 @@ import Shop from "./pages/Shop";
 import Unauthorized from "./components/Unauthorized";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Admin from "./pages/Admin";
+import Buy from "./pages/Buy";
 
 function App() {
   const router = createBrowserRouter(
@@ -28,7 +29,10 @@ function App() {
         <Route path="/unauthorized" element={<Unauthorized />} />
 
         <Route element={<ProtectedRoute allowedRoles={["CUSTOMER"]} />}>
-          <Route path="/shop" element={<Shop />} />
+          <Route path="/Shop" element={<Layout />}>
+            <Route path="products" element={<Shop />} />
+            <Route path="buy" element={<Buy />} />
+          </Route>
         </Route>
 
         <Route>
