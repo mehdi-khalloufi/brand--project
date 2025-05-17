@@ -49,7 +49,7 @@ const SignUp = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8 space-y-6">
-        <h2 className="text-3xl font-bold text-center text-indigo-700">
+        <h2 className="text-3xl font-bold text-center text-red-600">
           Create Account
         </h2>
         <p className="text-sm text-center text-gray-500">
@@ -69,7 +69,7 @@ const SignUp = () => {
               type="text"
               ref={nameRef}
               required
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
               placeholder="John Doe"
             />
           </div>
@@ -86,7 +86,7 @@ const SignUp = () => {
               type="email"
               ref={emailRef}
               required
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
               placeholder="you@example.com"
             />
           </div>
@@ -103,7 +103,7 @@ const SignUp = () => {
               type="text"
               ref={addressRef}
               required
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
               placeholder="123 Main Street"
             />
           </div>
@@ -120,7 +120,7 @@ const SignUp = () => {
               type="password"
               ref={passwordRef}
               required
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
               placeholder="••••••••"
             />
           </div>
@@ -137,14 +137,14 @@ const SignUp = () => {
               type="password"
               ref={passwordConfirmationRef}
               required
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
               placeholder="••••••••"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-200"
+            className="w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition duration-200"
           >
             Sign Up
           </button>
@@ -152,7 +152,7 @@ const SignUp = () => {
 
         <p className="text-center text-sm text-gray-500">
           Already have an account?{" "}
-          <a href="/login" className="text-indigo-600 hover:underline">
+          <a href="/login" className="text-red-600 hover:underline">
             Sign in
           </a>
         </p>

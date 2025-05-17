@@ -51,7 +51,7 @@ const Login = () => {
               Ecliptic
             </h1>
           </div>
-          <p className="h1-font1 text-sm text-center text-gray-500">
+          <p className="text-sm text-center text-gray-500">
             Please log in to your account
           </p>
 
@@ -59,7 +59,7 @@ const Login = () => {
             <div>
               <label
                 htmlFor="email"
-                className="h1-font1 block text-sm font-medium text-gray-600"
+                className=" block text-sm font-medium text-gray-600"
               >
                 Email Address
               </label>
@@ -68,7 +68,7 @@ const Login = () => {
                 type="email"
                 ref={emailRef}
                 required
-                className="h1-font1 w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 placeholder="you@example.com"
               />
             </div>
@@ -76,7 +76,7 @@ const Login = () => {
             <div>
               <label
                 htmlFor="password"
-                className="h1-font1 block text-sm font-medium text-gray-600"
+                className=" block text-sm font-medium text-gray-600"
               >
                 Password
               </label>
@@ -85,13 +85,13 @@ const Login = () => {
                 type="password"
                 ref={passwordRef}
                 required
-                className="h1-font1 w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className=" w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 placeholder="••••••••"
               />
               <div className="text-right mt-2">
                 <a
                   href="/forgot-password"
-                  className="h1-font1 text-sm text-red-600 hover:underline"
+                  className=" text-sm text-red-600 hover:underline"
                 >
                   Forgot password ?
                 </a>
@@ -100,15 +100,15 @@ const Login = () => {
 
             <button
               type="submit"
-              className="h1-font1 w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md  transition duration-200"
+              className=" w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md  transition duration-200"
             >
               Sign In
             </button>
           </form>
 
-          <p className="h1-font1 text-center text-sm text-gray-500">
+          <p className=" text-center text-sm text-gray-500">
             Don’t have an account?{" "}
-            <a href="/signup" className="h1-font1 text-red-600 hover:underline">
+            <a href="/signup" className=" text-red-600 hover:underline">
               Sign up
             </a>
           </p>

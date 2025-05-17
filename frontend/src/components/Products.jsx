@@ -1,45 +1,45 @@
 import React from "react";
 import Product from "./Product";
-
+import { useEffect, useState } from "react";
+import api from "../api/axios";
 const Products = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Astronomic ",
-      image: "/photos/pic5.png",
-      price: 199,
-    },
-    {
-      id: 2,
-      name: "Nebula",
-      image: "/photos/pic6.png",
-      price: 89,
-    },
-    {
-      id: 3,
-      name: "Lunar t",
-      image: "/photos/pic7.png",
-      price: 249,
-    },
-    {
-      id: 4,
-      name: "Galaxy ",
-      image: "/photos/pic8.png",
-      price: 49,
-    },
-    {
-      id: 5,
-      name: "Meteor ",
-      image: "/photos/pic9.png",
-      price: 179,
-    },
-    {
-      id: 6,
-      name: "Sacrifice",
-      image: "/photos/pic10.png",
-      price: 199,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+
+  const groupProductsByName = (data) => {
+    const grouped = {};
+
+    data.forEach((product) => {
+      const name = product.name;
+
+      if (!grouped[name]) {
+        grouped[name] = {
+          ...product,
+          sizes: [product.size],
+        };
+      } else {
+        grouped[name].sizes.push(product.size);
+      }
+    });
+
+    return Object.values(grouped);
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const response = await api.get("/api/products");
+      const grouped = groupProductsByName(response.data);
+      console.log(grouped);
+      setProducts(grouped);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -47,13 +47,16 @@ const Products = () => {
         id="Projects"
         class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5"
       >
-        {products.map((product) => (
-          <Product
-            name={product.name}
-            image={product.image}
-            price={product.price}
-          />
-        ))}
+        {products.map((product) => {
+          console.log("Image URL:", product.image_url);
+          return (
+            <Product
+              name={product.name}
+              image={product.image_url}
+              price={product.price}
+            />
+          );
+        })}
         {/* <Product name="Astronomic Hoodie" image="/photos/pic5.png" price={199}/>
         <Product name="Japaneese" image="/photos/pic8.png" price={299}/>
         <Product name="Sacrifice Hoodie" image="/photos/pic6.png" price={99}/>

@@ -1,6 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import api from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
-const BuyProduct = () => {
+const BuyProduct = (props) => {
+  const [product, setProduct] = useState({});
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+
+  const navigate = useNavigate();
+
+  const handleOrder = () => {
+    if (!selectedProductId) {
+      alert("Please select a size.");
+      return;
+    }
+
+    navigate("/shop/order", {
+      state: {
+        productId: selectedProductId,
+        quantity: quantity,
+      },
+    });
+  };
+
+  const fetchProduct = async () => {
+    try {
+      const response = await api.get("/api/productsByName?name=" + props.name);
+
+      setProduct(response.data);
+      console.log("hawa lproduit : ", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+    // finally {
+    //   setLoading(false);
+    // }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
   return (
     <>
       <section class="py-12 sm:py-16">
@@ -11,9 +51,9 @@ const BuyProduct = () => {
                 <div class="lg:order-2 lg:ml-5">
                   <div class="max-w-xl overflow-hidden rounded-lg">
                     <img
-                      class="h-full w-full max-w-full object-cover"
-                      src="/photos/pic5.png"
-                      alt=""
+                      className="h-full w-full max-w-full object-cover"
+                      src={product.image_url}
+                      alt={product.name}
                     />
                   </div>
                 </div>
@@ -21,8 +61,8 @@ const BuyProduct = () => {
             </div>
 
             <div class="lg:col-span-2 lg:row-span-2 lg:row-end-2">
-              <h1 class="sm: text-2xl font-bold text-gray-900 sm:text-3xl">
-                Astronomic
+              <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+                {product.name}
               </h1>
 
               <div class="mt-5 flex items-center">
@@ -88,42 +128,23 @@ const BuyProduct = () => {
                 </p>
               </div>
 
-              <h2 class="mt-8 text-base text-gray-900">Size</h2>
-              <div class="mt-3 flex select-none flex-wrap items-center gap-1">
-                <label class="">
-                  <input
-                    type="radio"
-                    name="size"
-                    value="Small"
-                    class="peer sr-only"
-                    checked
-                  />
-                  <p class="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">
-                    M
-                  </p>
-                </label>
-                <label class="">
-                  <input
-                    type="radio"
-                    name="size"
-                    value="Medium"
-                    class="peer sr-only"
-                  />
-                  <p class="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">
-                    L
-                  </p>
-                </label>
-                <label class="">
-                  <input
-                    type="radio"
-                    name="size"
-                    value="Large"
-                    class="peer sr-only"
-                  />
-                  <p class="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">
-                    XL
-                  </p>
-                </label>
+              <h2 className="mt-8 text-base text-gray-900">Size</h2>
+              <div className="mt-3 flex select-none flex-wrap items-center gap-1">
+                {product.sizes &&
+                  product.products.map((product, index) => (
+                    <label key={index}>
+                      <input
+                        type="radio"
+                        name="size"
+                        value={product.id}
+                        className="peer sr-only"
+                        onChange={() => setSelectedProductId(product.id)}
+                      />
+                      <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">
+                        {product.size}
+                      </p>
+                    </label>
+                  ))}
               </div>
 
               <h2 class="mt-8 text-base text-gray-900">Quantity</h2>
@@ -132,18 +153,19 @@ const BuyProduct = () => {
                   type="number"
                   name="quantity"
                   min="1"
+                  onChange={(e) => setQuantity(parseInt(e.target.value))}
                   defaultValue="1"
                   class="w-24 rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-black focus:ring-black"
                 />
               </div>
 
               <div class="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
-                <div class="flex items-end">
-                  <h1 class="text-3xl font-bold">$60.50</h1>
-                  <span class="text-base">/month</span>
+                <div className="flex items-end">
+                  <h1 className="text-3xl font-bold">{product.price} Dhs</h1>
                 </div>
 
                 <button
+                  onClick={handleOrder}
                   type="button"
                   class="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
                 >
@@ -161,13 +183,11 @@ const BuyProduct = () => {
                       d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                     />
                   </svg>
-                  Buy
+                  Order
                 </button>
               </div>
 
               <ul class="mt-8 space-y-2">
-            
-
                 <li class="flex items-center text-left text-sm font-medium text-gray-600">
                   <svg
                     class="mr-2 block h-5 w-5 align-middle text-gray-500"

@@ -2,11 +2,11 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { useStateContext } from "../contexts/contextProvider.jsx";
-import api from "../api/axios";
+import api from "../api/axios.js";
 
 const navigation = [
   { name: "Dashboard", href: "/" },
-  { name: "Team", href: "/team" },
+  { name: "Products", href: "/admin/products" },
   { name: "Calendar", href: "/calendar" },
   { name: "Reports", href: "/reports" },
 ];
@@ -14,7 +14,8 @@ const navigation = [
 const customerNavigation = [
   { name: "Shop", href: "/shop" },
   { name: "Products", href: "/shop/products" },
-  { name: "Orders", href: "/shop/orders" },
+  { name: "Orders", href: "/shop/myOrders" },
+  { name: "panier", href: "/shop/panier" },
 ];
 
 const userNavigation = [
