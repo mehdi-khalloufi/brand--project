@@ -11,8 +11,7 @@ const navigation = [
   { name: "Reports", href: "/reports" },
 ];
 
-const customerNavigation = [
-  { name: "Shop", href: "/shop" },
+const customerNavigation = [  
   { name: "Products", href: "/shop/products" },
   { name: "Orders", href: "/shop/myOrders" },
   { name: "panier", href: "/shop/panier" },

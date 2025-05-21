@@ -35,3 +35,6 @@ Route::middleware('auth:sanctum')->apiResource('orders', OrderController::class)
 
 //
 Route::get('/orders/user/{userId}', [OrderController::class, 'getByUserId']);
+
+//bach t cancelli
+Route::middleware('auth:sanctum')->put('/orders/{id}/cancel', [OrderController::class, 'cancel']);

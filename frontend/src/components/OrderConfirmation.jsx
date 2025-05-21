@@ -25,18 +25,17 @@ export default function OrderConfirmation({ product, quantity }) {
     };
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (status) => {
     try {
       const res = await api.post("/api/orders", {
         user_id: user.id,
         product_id: product.id,
         quantity: quantity,
         price: product.price,
-        status: "PENDING",
+        status: status,
       });
 
+      navigate("/shop/myOrders");
       console.log(res.data);
     } catch (error) {
       console.error(error);
@@ -106,12 +105,15 @@ export default function OrderConfirmation({ product, quantity }) {
           >
             Back
           </button>
-          <button className="px-6 py-3 border border-black hover:bg-gray-100 transition-colors">
+          <button
+            onClick={() => handleSubmit("PENDING")}
+            className="px-6 py-3 border border-black hover:bg-gray-100 transition-colors"
+          >
             Pay later
           </button>
           <button
             className="bg-black text-white px-6 py-3 hover:bg-gray-800 transition-colors"
-            onClick={handleSubmit} // Add your confirmation logic here
+            onClick={() => handleSubmit("PAID")} // Add your confirmation logic here
           >
             Pay now
           </button>
