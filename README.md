@@ -1,6 +1,6 @@
 #  Ecliptic - Site E-Commerce de Marque
 
-Bienvenue sur **Ecliptic**, une plateforme e-commerce moderne et responsive développée avec **Laravel** pour l’API backend et **React.js** pour le frontend. Ce projet illustre un **développement full-stack** avec des fonctionnalités avancées telles que les **opérations CRUD**, l’**authentification basée sur JWT**, des **APIs RESTful**, et une **présentation dynamique des produits**, spécialement conçue pour les passionnés de mode.
+Bienvenue sur **Ecliptic**, une plateforme e-commerce moderne et responsive développée avec **Laravel** pour l’API backend et **React.js** pour le frontend. Ce projet illustre un **développement full-stack** avec des fonctionnalités avancées telles que les **opérations CRUD**, l’**authentification **, des **APIs RESTful**, et une **présentation dynamique des produits**, spécialement conçue pour les passionnés de mode.
 
 ---
 
