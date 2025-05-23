@@ -13,9 +13,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('/test', function () {
-    return ['message' => 'Bonjour depuis Laravel ! chi 9alwa wla ana f laravel azbi'];
-});
 
 
 Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 'store']);
@@ -25,10 +22,22 @@ Route::middleware('auth:sanctum')->delete('/products/{id}', [ProductController::
 Route::middleware('auth:sanctum')->post('/products/{id}', [ProductController::class, 'update']);
 Route::middleware('auth:sanctum')->get('/products/{id}', [ProductController::class, 'show']);
 
+//
+Route::middleware('auth:sanctum')->get('/users/count', [OrderController::class, 'usercount']);
+//
+Route::middleware('auth:sanctum')->get('/orders/count', [OrderController::class, 'count']);
+//
+Route::middleware('auth:sanctum')->get('/prod/count', [ProductController::class, 'prodcount']);
+
+
 // for authentication
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'register']);
 Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
+
+
+
+
 
 //for ordering
 Route::middleware('auth:sanctum')->apiResource('orders', OrderController::class);
@@ -38,3 +47,6 @@ Route::get('/orders/user/{userId}', [OrderController::class, 'getByUserId']);
 
 //bach t cancelli
 Route::middleware('auth:sanctum')->put('/orders/{id}/cancel', [OrderController::class, 'cancel']);
+
+//paiement
+Route::middleware('auth:sanctum')->patch('/orders/{id}/mark-paid', [OrderController::class, 'markAsPaid']);

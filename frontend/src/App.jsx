@@ -20,6 +20,8 @@ import ProductManager from "./pages/ProductManager";
 import Buy from "./pages/Buy";
 import Order from "./pages/Order";
 import MyOrders from "./pages/MyOrders";
+import CheckoutPage from "./components/CheckoutPage";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const router = createBrowserRouter(
@@ -42,6 +44,10 @@ function App() {
             <Route path="buy/:name" element={<Buy />} />
             <Route path="order" element={<Order />} />
             <Route path="myOrders" element={<MyOrders />} />
+            <Route
+              path="CheckoutPage/:total/:orderId"
+              element={<CheckoutPage />}
+            />
           </Route>
         </Route>
 
@@ -50,9 +56,12 @@ function App() {
             <Route path="/admin" element={<Layout />}>
               <Route path="product" element={<Products />} />
               <Route path="productManager" element={<ProductManager />} />
+              <Route path="dashboard" element={<Dashboard/>} />
             </Route>
           </Route>
         </Route>
+
+        
       </>
     )
   );

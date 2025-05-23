@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
@@ -119,4 +121,37 @@ class OrderController extends Controller
 
         return response()->json(['message' => 'Order cancelled successfully', 'order' => $order]);
     }
+
+
+    public function markAsPaid($id)
+    {
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+
+        if ($order->status !== 'PENDING') {
+            return response()->json(['message' => 'Only pending orders can be marked as paid'], 400);
+        }
+
+        $order->status = 'PAID';
+        $order->save();
+
+        return response()->json(['message' => 'Order marked as paid successfully', 'order' => $order]);
+    }
+
+
+    public function count()
+    {
+        $count = Order::count();
+        return response()->json(['count' => $count]);
+    }
+
+    public function usercount()
+    {
+        $count = User::count();
+        return response()->json(['count' => $count]);
+    }
+    
 }

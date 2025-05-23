@@ -20,7 +20,7 @@ class ProductController extends Controller
 
         return response()->json($product);
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -161,5 +161,12 @@ class ProductController extends Controller
         ];
 
         return response()->json($grouped);
+    }
+
+    public function prodcount()
+    {
+        dd('prodcount hit');
+        $count = Product::count();
+        return response()->json(['count' => $count]);
     }
 }

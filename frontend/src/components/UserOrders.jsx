@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useStateContext } from "../contexts/contextProvider.jsx"; // adjust import path
+import { useNavigate } from "react-router-dom";
 
 export default function UserOrders() {
   const [orders, setOrders] = useState([]);
@@ -9,6 +10,8 @@ export default function UserOrders() {
   const { user, setUser } = useStateContext();
   const [showModal, setShowModal] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -25,6 +28,19 @@ export default function UserOrders() {
     };
     fetchUser();
   }, [setUser]);
+
+  const payOrder = async (orderId) => {
+    const totalAmount = 99.99;
+    navigate(`/shop/CheckoutPage/${totalAmount}/${orderId}`, {
+      state: { total: totalAmount },
+    });
+
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order.id === orderId ? { ...order, status: "PAID" } : order
+      )
+    );
+  };
 
   const cancelOrder = async (orderId) => {
     try {
@@ -134,10 +150,7 @@ export default function UserOrders() {
                       Cancel
                     </button>
                     <button
-                      onClick={() => {
-                        setSelectedOrderId(order.id);
-                        setShowModal(true);
-                      }}
+                      onClick={() => payOrder(order.id)}
                       className="cursor-pointer inline-block px-4 py-1 text-xs font-semibold rounded-full border border-green-600 text-green-600 hover:bg-green-100 transition"
                     >
                       Pay
