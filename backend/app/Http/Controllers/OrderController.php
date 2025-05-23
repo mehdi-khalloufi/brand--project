@@ -119,4 +119,12 @@ class OrderController extends Controller
 
         return response()->json(['message' => 'Order cancelled successfully', 'order' => $order]);
     }
+public function showAllOrders()
+{
+    $orders = Order::getAllOrdersWithDetails();
+
+    // Par exemple, retourner les données en JSON
+    return response()->json($orders);
+}
+
 }

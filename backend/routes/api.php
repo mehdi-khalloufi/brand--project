@@ -13,10 +13,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('/test', function () {
-    return ['message' => 'Bonjour depuis Laravel ! chi 9alwa wla ana f laravel azbi'];
-});
-
 
 Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/products', [ProductController::class, 'products']);
@@ -25,6 +21,7 @@ Route::middleware('auth:sanctum')->delete('/products/{id}', [ProductController::
 Route::middleware('auth:sanctum')->post('/products/{id}', [ProductController::class, 'update']);
 Route::middleware('auth:sanctum')->get('/products/{id}', [ProductController::class, 'show']);
 
+Route::middleware('auth:sanctum')->get('/ordersDetails', [OrderController::class, 'showAllOrders']);
 // for authentication
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'register']);

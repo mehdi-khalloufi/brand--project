@@ -20,6 +20,7 @@ import ProductManager from "./pages/ProductManager";
 import Buy from "./pages/Buy";
 import Order from "./pages/Order";
 import MyOrders from "./pages/MyOrders";
+import OrderManager from "./pages/OrderManager";
 
 function App() {
   const router = createBrowserRouter(
@@ -50,6 +51,7 @@ function App() {
             <Route path="/admin" element={<Layout />}>
               <Route path="product" element={<Products />} />
               <Route path="productManager" element={<ProductManager />} />
+              <Route path="orders" element={<OrderManager />} />
             </Route>
           </Route>
         </Route>

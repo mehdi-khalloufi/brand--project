@@ -5,10 +5,10 @@ import { useStateContext } from "../contexts/contextProvider.jsx";
 import api from "../api/axios.js";
 
 const navigation = [
-  { name: "Dashboard", href: "/" },
-  { name: "Products", href: "/admin/products" },
-  { name: "Calendar", href: "/calendar" },
-  { name: "Reports", href: "/reports" },
+  { name: "Tableau de bord", href: "/admin" },
+  { name: "Ajouter des produits", href: "/admin/product" },
+  { name: "Gérer les produits", href: "/admin/productManager" },
+  { name: "les commandes", href: "/admin/orders" },
 ];
 
 const customerNavigation = [  
@@ -19,8 +19,7 @@ const customerNavigation = [
 
 const userNavigation = [
   { name: "Your Profile", href: "/profile" },
-  { name: "Settings", href: "/settings" },
-  { name: "Sign out", href: "/logout" },
+  { name: "Sign out", href: "/" },
 ];
 
 function classNames(...classes) {

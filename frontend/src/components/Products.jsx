@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import api from "../api/axios";
+import { LifeLine } from "react-loading-indicators";
 
 const Products = () => {
   const [productsByCategory, setProductsByCategory] = useState({});
@@ -64,7 +65,9 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  if (loading) return <p>Loading products...</p>;
+  if (loading) return  <div className="fixed inset-0 bg-opacity-70 z-50 flex items-center justify-center">
+          <LifeLine color="#ee2b2b" size="medium" text="" textColor="" />
+        </div>;
 
   return (
     <>

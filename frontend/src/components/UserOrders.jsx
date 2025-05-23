@@ -102,9 +102,9 @@ export default function UserOrders() {
                   <p className="text-sm text-gray-700">
                     Quantity: {order.quantity}
                   </p>
-                  <p className="text-sm text-gray-700">Price: ${order.price}</p>
+                  <p className="text-sm text-gray-700">Price: DH{order.price}</p>
                   <p className="text-sm text-gray-700 mt-1 font-semibold">
-                    Total: ${order.total_price}
+                    Total: DH{order.total_price}
                   </p>
                 </div>
 
