@@ -3,6 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/contextProvider";
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import { LifeLine } from "react-loading-indicators";
 
 const ProtectedRoute = ({ allowedRoles }) => {
   const { user, token, setUser } = useStateContext();
@@ -32,7 +33,9 @@ const ProtectedRoute = ({ allowedRoles }) => {
   }, [token]);
 
   if (loading) {
-    return <div>Loading user...</div>; // or a spinner
+    return  <div className="fixed inset-0 bg-white bg-opacity-70 z-50 flex items-center justify-center">
+          <LifeLine color="#ee2b2b" size="medium" text="" textColor="" />
+        </div> 
   }
 
   if (!token) {

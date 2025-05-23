@@ -29,8 +29,7 @@ export default function UserOrders() {
     fetchUser();
   }, [setUser]);
 
-  const payOrder = async (orderId) => {
-    const totalAmount = 99.99;
+  const payOrder = async (totalAmount, orderId) => {
     navigate(`/shop/CheckoutPage/${totalAmount}/${orderId}`, {
       state: { total: totalAmount },
     });
@@ -118,9 +117,11 @@ export default function UserOrders() {
                   <p className="text-sm text-gray-700">
                     Quantity: {order.quantity}
                   </p>
-                  <p className="text-sm text-gray-700">Price: ${order.price}</p>
+                  <p className="text-sm text-gray-700">
+                    Price: DH{order.price}
+                  </p>
                   <p className="text-sm text-gray-700 mt-1 font-semibold">
-                    Total: ${order.total_price}
+                    Total: DH{order.total_price}
                   </p>
                 </div>
 
@@ -150,7 +151,7 @@ export default function UserOrders() {
                       Cancel
                     </button>
                     <button
-                      onClick={() => payOrder(order.id)}
+                      onClick={() => payOrder(order.total_price, order.id)}
                       className="cursor-pointer inline-block px-4 py-1 text-xs font-semibold rounded-full border border-green-600 text-green-600 hover:bg-green-100 transition"
                     >
                       Pay

@@ -85,12 +85,12 @@ export default function OrderConfirmation({ product, quantity }) {
             <div className="pt-4 border-t border-black">
               <div className="flex justify-between items-center mb-2">
                 <p className="text-gray-600">Price per item</p>
-                <p className="font-medium text-black">${product.price}</p>
+                <p className="font-medium text-black">{product.price}Dhs</p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-gray-600">Total</p>
                 <p className="text-2xl font-bold text-black">
-                  ${product.price * quantity}
+                  {product.price * quantity}Dhs
                 </p>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function OrderConfirmation({ product, quantity }) {
           </button>
           <button
             className="bg-black text-white px-6 py-3 hover:bg-gray-800 transition-colors"
-            onClick={() => handleSubmit("PAID")} // Add your confirmation logic here
+            onClick={() =>navigate(`/shop/CheckoutPage/${product.price * quantity}/${quantity}`)} // Add your confirmation logic here
           >
             Pay now
           </button>

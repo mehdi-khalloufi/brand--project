@@ -156,17 +156,11 @@ class ProductController extends Controller
             'name' => $products->first()->name,
             'image_url' => $products->first()->image_url,
             'price' => $products->first()->price,
+            'description' => $products->first()->description,
             'sizes' => $products->pluck('size')->unique()->values(),
             'products' => $products, // full list of matching products
         ];
 
         return response()->json($grouped);
-    }
-
-    public function prodcount()
-    {
-        dd('prodcount hit');
-        $count = Product::count();
-        return response()->json(['count' => $count]);
     }
 }

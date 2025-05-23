@@ -27,7 +27,7 @@ const Login = () => {
         setToken(data.token);
         setLoading(false);
         data.user.role == "ADMIN"
-          ? navigate("/admin")
+          ? navigate("/admin/dashboard")
           : navigate("/shop/products");
       })
       .catch((err) => {

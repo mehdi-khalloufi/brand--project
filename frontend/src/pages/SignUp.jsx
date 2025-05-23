@@ -31,7 +31,7 @@ const SignUp = () => {
         setUser(data.user);
         setToken(data.token);
         console.log("Set user called with:", data.user);
-        navigate("/shop");
+        navigate("/shop/products");
       })
       .catch((err) => {
         console.error(err.response.data.message);

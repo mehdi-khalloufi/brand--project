@@ -22,7 +22,7 @@ const Product = (props) => {
               </p>
               <del>
                 <p class="text-sm text-gray-600 cursor-auto ml-2">
-                  {props.price  + 20} DHS
+                  {Number(props.price)  + 20} DHS
                 </p>
               </del>
               <div class="ml-auto">

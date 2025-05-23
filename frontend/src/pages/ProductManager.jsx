@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../api/axios';
-
+import { LifeLine } from "react-loading-indicators";
 const ProductManager = () => {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -88,7 +88,9 @@ const ProductManager = () => {
   };
   
 
-  if (loading) return <div className="text-center py-8">Chargement...</div>;
+  if (loading) return  <div className="fixed inset-0 bg-opacity-70 z-50 flex items-center justify-center">
+          <LifeLine color="#ee2b2b" size="medium" text="" textColor="" />
+        </div>;
 
   return (
     <div className="min-h-screen bg-white p-4 sm:p-6">

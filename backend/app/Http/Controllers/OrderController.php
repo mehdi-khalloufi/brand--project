@@ -153,5 +153,23 @@ class OrderController extends Controller
         $count = User::count();
         return response()->json(['count' => $count]);
     }
-    
+
+    public function showAllOrders()
+    {
+        $orders = Order::getAllOrdersWithDetails();
+
+        // Par exemple, retourner les données en JSON
+        return response()->json($orders);
+    }
+
+    public function prodcount()
+    {
+        $count = \App\Models\Product::select('name')
+            ->groupBy('name')
+            ->havingRaw('COUNT(*) >= 1')
+            ->get()
+            ->count(); // nombre de noms répétés (groupes)
+
+        return response()->json(['count' => $count]);
+    }
 }

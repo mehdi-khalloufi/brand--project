@@ -20,6 +20,7 @@ import ProductManager from "./pages/ProductManager";
 import Buy from "./pages/Buy";
 import Order from "./pages/Order";
 import MyOrders from "./pages/MyOrders";
+import OrderManager from "./pages/OrderManager";
 import CheckoutPage from "./components/CheckoutPage";
 import Dashboard from "./pages/Dashboard";
 
@@ -56,6 +57,7 @@ function App() {
             <Route path="/admin" element={<Layout />}>
               <Route path="product" element={<Products />} />
               <Route path="productManager" element={<ProductManager />} />
+              <Route path="orders" element={<OrderManager />} />
               <Route path="dashboard" element={<Dashboard/>} />
             </Route>
           </Route>
