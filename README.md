@@ -1,24 +1,26 @@
-#  Ecliptic - Site E-Commerce de Marque
+# Ecliptic - Site E-Commerce de Marque
 
 Bienvenue sur **Ecliptic**, une plateforme e-commerce moderne et responsive développée avec **Laravel** pour l’API backend et **React.js** pour le frontend. Ce projet illustre un **développement full-stack** avec des fonctionnalités avancées telles que les **opérations CRUD**, l’**authentification**, des **APIs RESTful**, et une **présentation dynamique des produits**, spécialement conçue pour les passionnés de mode.
 
 ---
 
-##  Architecture
+## Architecture
 
-![Archirecture de projet](architecture.png)  
+![Archirecture de projet](architecture.png)
 
 ---
 
 ## 🚀 Fonctionnalités
 
 ### 🛠️ Espace Administrateur
+
 - ✏️ CRUD complet pour les produits, catégories et utilisateurs
 - 📊 Tableau de bord avec statistiques
 - 🧩 Gestion des rôles (administrateur vs utilisateur)
 - 📥 Téléchargement d'images de produits (avec validation)
 
 ### ✅ Côté Utilisateur
+
 - 🔐 Inscription et connexion sécurisées
 - 👕 Consultation et filtrage des produits par catégories
 - 🛒 Ajout de commandes, possibilité de payer immédiatement ou plus tard, annulation des commandes
@@ -28,20 +30,21 @@ Bienvenue sur **Ecliptic**, une plateforme e-commerce moderne et responsive dév
 
 ## 🧰 Technologies Utilisées
 
-| Stack         | Technologies                      |
-|---------------|-----------------------------------|
-| **Frontend**  | React.js, Axios, React Router     |
-| **Backend**   | Laravel 12, Sanctum             |
-| **Base de données** | MySQL                        |
-| **Style**     | Tailwind CSS                      |
-| **Auth API**  | Laravel Sanctum                   |
-| **Outils Dev**| Postman, VSCode, GitHub           |
+| Stack               | Technologies                  |
+| ------------------- | ----------------------------- |
+| **Frontend**        | React.js, Axios, React Router |
+| **Backend**         | Laravel 12, Sanctum           |
+| **Base de données** | MySQL                         |
+| **Style**           | Tailwind CSS                  |
+| **Auth API**        | Laravel Sanctum               |
+| **Outils Dev**      | Postman, VSCode, GitHub       |
 
 ---
 
 ## ⚙️ Guide d’Installation
 
 ### 🔧 Prérequis
+
 - PHP ^8.1
 - Composer
 - Node.js ^18+
@@ -64,10 +67,14 @@ composer install
 cp .env.example .env
 php artisan key:generate
 
-# Configurer la base de données dans le fichier .env et importer le fichier sql 
+# Configurer la base de données dans le fichier .env et importer le fichier sql
+importer le fichier eclipticdatabase.sql dans phpMyAdmin
+
 
 # Lancer le serveur Laravel
 php artisan serve
+
+
 
 ```
 
@@ -81,4 +88,13 @@ npm install
 
 # Lancer le serveur de développement
 npm run dev
+
+
+# pour ce connecter :
+- pour admin :
+email : admin@gmail.com / password : admin1234
+
+- pour customer :
+email : mataichwalid2@gmail.com / password : walid123
+
 ```
