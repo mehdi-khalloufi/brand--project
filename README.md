@@ -6,7 +6,9 @@ Bienvenue sur **Ecliptic**, une plateforme e-commerce moderne et responsive dév
 
 ## Architecture
 
-![Archirecture de projet](architecture.png)
+![Archirecture de projet](demopics/architecture.png)
+![Landing Page](demopics/landingpage.png)
+![Dashboard Administrateur](demopics/dashboard.png)
 
 ---
 

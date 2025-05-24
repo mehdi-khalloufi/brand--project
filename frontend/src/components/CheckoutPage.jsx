@@ -10,7 +10,7 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     try {
       const res = await api.patch(`/api/orders/${orderId}/mark-paid`);
-      console.log("Order paid:", res.data);
+      // console.log("Order paid:", res.data);
       navigate(-1);
       
 

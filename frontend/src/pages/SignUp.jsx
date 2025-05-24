@@ -23,14 +23,14 @@ const SignUp = () => {
       password: passwordRef.current.value,
       role: "CUSTOMER",
     };
-    console.log(newUser);
+    // console.log(newUser);
     api
       .post("/api/signup", newUser)
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         setUser(data.user);
         setToken(data.token);
-        console.log("Set user called with:", data.user);
+        // console.log("Set user called with:", data.user);
         navigate("/shop/products");
       })
       .catch((err) => {
@@ -38,13 +38,13 @@ const SignUp = () => {
       });
   };
 
-  useEffect(() => {
-    console.log("User updated:", user);
-  }, [user]);
+  // useEffect(() => {
+  //   console.log("User updated:", user);
+  // }, [user]);
 
-  useEffect(() => {
-    console.log("token updated:", token);
-  }, [token]);
+  // useEffect(() => {
+  //   console.log("token updated:", token);
+  // }, [token]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">

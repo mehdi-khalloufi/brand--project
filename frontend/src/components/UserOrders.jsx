@@ -17,7 +17,7 @@ export default function UserOrders() {
     const fetchUser = async () => {
       try {
         const res = await api.get("/api/user");
-        console.log("User data:", res.data);
+        // console.log("User data:", res.data);
         setUser(res.data);
       } catch (err) {
         console.error("Failed to fetch user:", err.message);
@@ -44,7 +44,7 @@ export default function UserOrders() {
   const cancelOrder = async (orderId) => {
     try {
       const res = await api.put(`/api/orders/${orderId}/cancel`);
-      console.log("Order cancelled:", res.data);
+      // console.log("Order cancelled:", res.data);
       // Optionnel : rafraîchir la liste des commandes
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
@@ -67,7 +67,7 @@ export default function UserOrders() {
       .get(`/api/orders/user/${user.id}`)
       .then((response) => {
         setOrders(response.data);
-        console.log("Orders data:", response.data);
+        // console.log("Orders data:", response.data);
       })
       .catch((err) => {
         setError(err.message || "Failed to fetch orders");

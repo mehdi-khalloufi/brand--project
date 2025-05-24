@@ -17,7 +17,7 @@ const Order = () => {
       .then((response) => {
         setProduct(response.data);
         setLoading(false);
-        console.log("Product data:", response.data);
+        // console.log("Product data:", response.data);
       })
       .catch((error) => {
         console.error("Error fetching product data:", error);

@@ -12,7 +12,7 @@ const ProductManager = () => {
   
   
   const handleEditChange = (e) => {
-    console.log(editingProduct);
+    // console.log(editingProduct);
     const { name, value } = e.target;
     setEditingProduct(prev => ({
       ...prev,
@@ -32,7 +32,7 @@ const ProductManager = () => {
     try {
       const response = await api.get('/api/products');
       setProducts(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -76,7 +76,7 @@ const ProductManager = () => {
   
       const response = await api.post(`/api/products/${editingProduct.id}`, formData); 
       
-      console.log("Produit modifié :", response.data);
+      // console.log("Produit modifié :", response.data);
       setMessage("Produit modifié avec succès !");
       setEditingProduct(null);
       setMessage(null);

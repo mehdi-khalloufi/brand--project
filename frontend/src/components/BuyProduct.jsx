@@ -28,7 +28,7 @@ const BuyProduct = (props) => {
       const response = await api.get("/api/productsByName?name=" + props.name);
 
       setProduct(response.data);
-      console.log("hawa lproduit : ", response.data);
+      // console.log("hawa lproduit : ", response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }

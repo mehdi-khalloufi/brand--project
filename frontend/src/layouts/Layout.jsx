@@ -11,10 +11,9 @@ const navigation = [
   { name: "les commandes", href: "/admin/orders" },
 ];
 
-const customerNavigation = [  
+const customerNavigation = [
   { name: "Products", href: "/shop/products" },
   { name: "Orders", href: "/shop/myOrders" },
-  
 ];
 
 const userNavigation = [
@@ -45,7 +44,7 @@ export default function Layout() {
     const fetchUser = async () => {
       try {
         const res = await api.get("/api/user");
-        console.log("User data:", res.data);
+        // console.log("User data:", res.data);
         setUser(res.data);
       } catch (err) {
         console.error("Failed to fetch user:", err.message);
@@ -163,21 +162,23 @@ export default function Layout() {
             </div>
 
             <nav className="space-y-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={classNames(
-                    location.pathname === item.href
-                      ? "bg-gray-100 text-black"
-                      : "text-gray-600 hover:bg-gray-100",
-                    "block px-4 py-3 rounded-lg font-medium"
-                  )}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {(user.role == "ADMIN" ? navigation : customerNavigation).map(
+                (item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={classNames(
+                      location.pathname === item.href
+                        ? "bg-gray-100 text-black"
+                        : "text-gray-600 hover:bg-gray-100",
+                      "block px-4 py-3 rounded-lg font-medium"
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                )
+              )}
             </nav>
 
             <div className=" pt-2 border-t border-gray-200">

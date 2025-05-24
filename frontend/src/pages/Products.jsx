@@ -45,7 +45,7 @@ export default function Products() {
           }
         });
   
-        console.log(`Produit ajouté pour taille ${s.size}:`, response.data);
+        // console.log(`Produit ajouté pour taille ${s.size}:`, response.data);
       }
   
       setMessage("Produit(s) ajouté(s) avec succès !");

@@ -14,7 +14,7 @@ export default function OrderConfirmation({ product, quantity }) {
     const fetchUser = async () => {
       try {
         const res = await api.get("/api/user");
-        console.log("User data:", res.data);
+        // console.log("User data:", res.data);
         setUser(res.data);
       } catch (err) {
         console.error("Failed to fetch user:", err.message);
@@ -36,7 +36,7 @@ export default function OrderConfirmation({ product, quantity }) {
       });
 
       navigate("/shop/myOrders");
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.error(error);
     }

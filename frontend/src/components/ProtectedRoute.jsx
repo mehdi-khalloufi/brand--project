@@ -14,7 +14,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
     const fetchUser = async () => {
       try {
         const res = await api.get("/api/user");
-        console.log("User data:", res.data);
+        // console.log("User data:", res.data);
         setUser(res.data);
       } catch (err) {
         console.error("Failed to fetch user:", err.message);

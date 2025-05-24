@@ -30,9 +30,9 @@ const Home = () => {
 
   const { user, token } = useStateContext();
 
-  useEffect(() => {
-   console.log("User:", user);
-  }, [])
+  // useEffect(() => {
+  // //  console.log("User:", user);
+  // }, [])
   
 
   return (
